@@ -131,7 +131,7 @@ pipeline {
                               --document-name "AWS-RunShellScript" \
                               --comment "Deploy via Bastion to Ansible" \
                               --parameters 'commands=[
-                                "ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE_IP sudo /usr/bin/ansible-playbook -i /etc/ansible/stage_hosts /etc/ansible/deployment.yml"
+                                ["sudo -u ubuntu ssh -o StrictHostKeyChecking=no -i /home/ubuntu/.ssh/id_rsa ec2-user@'"$ANSIBLE_IP"' ansible-playbook -i /home/ec2-user/ansible/stage_hosts /home/ec2-user/ansible/deployment.yaml"
                               ]' \
                               --output text
                             '''
@@ -160,8 +160,7 @@ pipeline {
                               --document-name "AWS-RunShellScript" \
                               --comment "Deploy via Bastion to Ansible" \
                               --parameters 'commands=[
-                                "ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE_IP sudo /usr/bin/ansible-playbook -i /etc/ansible/prod_hosts /etc/ansible/deployment.yml"
-                              ]' \
+                               ["sudo -u ubuntu ssh -o StrictHostKeyChecking=no -i /home/ubuntu/.ssh/id_rsa ec2-user@'"$ANSIBLE_IP"' ansible-playbook -i /home/ec2-user/ansible/stage_hosts /home/ec2-user/ansible/deployment.yaml"]' \
                               --output text
                             '''
         
